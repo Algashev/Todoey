@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		FFA5D436220C838400701F18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA5D435220C838400701F18 /* AppDelegate.swift */; };
-		FFA5D438220C838400701F18 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA5D437220C838400701F18 /* ViewController.swift */; };
+		FFA5D438220C838400701F18 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA5D437220C838400701F18 /* TodoListViewController.swift */; };
 		FFA5D43B220C838400701F18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFA5D439220C838400701F18 /* Main.storyboard */; };
 		FFA5D43D220C838400701F18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFA5D43C220C838400701F18 /* Assets.xcassets */; };
 		FFA5D440220C838400701F18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFA5D43E220C838400701F18 /* LaunchScreen.storyboard */; };
+		FFA5D44A220D2B0200701F18 /* UITableViewCell+ToggleAccessoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA5D449220D2B0200701F18 /* UITableViewCell+ToggleAccessoryType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FFA5D432220C838400701F18 /* Todoey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFA5D435220C838400701F18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FFA5D437220C838400701F18 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FFA5D437220C838400701F18 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		FFA5D43A220C838400701F18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FFA5D43C220C838400701F18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFA5D43F220C838400701F18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FFA5D441220C838400701F18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFA5D449220D2B0200701F18 /* UITableViewCell+ToggleAccessoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ToggleAccessoryType.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,13 +57,22 @@
 			isa = PBXGroup;
 			children = (
 				FFA5D435220C838400701F18 /* AppDelegate.swift */,
-				FFA5D437220C838400701F18 /* ViewController.swift */,
+				FFA5D437220C838400701F18 /* TodoListViewController.swift */,
 				FFA5D439220C838400701F18 /* Main.storyboard */,
 				FFA5D43C220C838400701F18 /* Assets.xcassets */,
 				FFA5D43E220C838400701F18 /* LaunchScreen.storyboard */,
 				FFA5D441220C838400701F18 /* Info.plist */,
+				FFA5D448220D2A9B00701F18 /* Extensions */,
 			);
 			path = Todoey;
+			sourceTree = "<group>";
+		};
+		FFA5D448220D2A9B00701F18 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FFA5D449220D2B0200701F18 /* UITableViewCell+ToggleAccessoryType.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +146,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFA5D438220C838400701F18 /* ViewController.swift in Sources */,
+				FFA5D438220C838400701F18 /* TodoListViewController.swift in Sources */,
 				FFA5D436220C838400701F18 /* AppDelegate.swift in Sources */,
+				FFA5D44A220D2B0200701F18 /* UITableViewCell+ToggleAccessoryType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
