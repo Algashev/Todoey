@@ -8,12 +8,20 @@
 
 import UIKit
 
+struct TodoListConstants {
+    static let defaultsItems: String = "TodoListItems"
+}
+
 class TodoListViewController: UITableViewController {
-    var items = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
+    var items: [String] = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        if let defaultsItems = defaults.array(forKey: TodoListConstants.defaultsItems) as? [String] {
+            items = defaultsItems
+        }
     }
     
     // MARK: - TableView Datasource Methods
@@ -38,11 +46,12 @@ class TodoListViewController: UITableViewController {
     @IBAction func addNewItemButtonPressed(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "New Todoey Item", message: "", preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            print("Alert Action Done: \"\(action.title ?? "")\"")
+//            print("Alert Action Done: \"\(action.title ?? "")\"")
             let alertTextField: UITextField = alert.textFields![0] as UITextField
             if alertTextField.text != "" {
-                print("alertTextField.text = \(alertTextField.text!)")
+//                print("New Item Added: \(alertTextField.text!)")
                 self.items.append(alertTextField.text!)
+                self.defaults.set(self.items, forKey: TodoListConstants.defaultsItems)
                 self.tableView.reloadData()
             }
         }
