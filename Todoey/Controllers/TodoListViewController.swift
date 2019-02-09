@@ -9,6 +9,7 @@
 import UIKit
 
 struct TodoListKeys {
+    static let cellReuseIdentifier: String = "ToDoItemCell"
     static let defaultsItems: String = "TodoListItems"
 }
 
@@ -23,11 +24,12 @@ class TodoListViewController: UITableViewController {
 //        if let defaultsItems = defaults.array(forKey: TodoListKeys.defaultsItems) as? [String] {
 //            items = defaultsItems
 //        }
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: TodoListKeys.cellReuseIdentifier)
     }
     
     // MARK: - TableView Datasource Methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: TodoListKeys.cellReuseIdentifier, for: indexPath)
         cell.textLabel?.text = items[indexPath.row].title
         cell.setAccessory(.checkmark, enabled: items[indexPath.row].selected)
         return cell

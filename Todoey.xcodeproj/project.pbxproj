@@ -12,7 +12,7 @@
 		FFA5D43B220C838400701F18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFA5D439220C838400701F18 /* Main.storyboard */; };
 		FFA5D43D220C838400701F18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFA5D43C220C838400701F18 /* Assets.xcassets */; };
 		FFA5D440220C838400701F18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFA5D43E220C838400701F18 /* LaunchScreen.storyboard */; };
-		FFA5D44A220D2B0200701F18 /* UITableViewCell+ToggleAccessoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA5D449220D2B0200701F18 /* UITableViewCell+ToggleAccessoryType.swift */; };
+		FFA5D44A220D2B0200701F18 /* UITableViewCell+AccessoryHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA5D449220D2B0200701F18 /* UITableViewCell+AccessoryHandlers.swift */; };
 		FFA5D44C220E9EE500701F18 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA5D44B220E9EE400701F18 /* Item.swift */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +24,7 @@
 		FFA5D43C220C838400701F18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFA5D43F220C838400701F18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FFA5D441220C838400701F18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FFA5D449220D2B0200701F18 /* UITableViewCell+ToggleAccessoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ToggleAccessoryType.swift"; sourceTree = "<group>"; };
+		FFA5D449220D2B0200701F18 /* UITableViewCell+AccessoryHandlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+AccessoryHandlers.swift"; sourceTree = "<group>"; };
 		FFA5D44B220E9EE400701F18 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,7 +72,7 @@
 		FFA5D448220D2A9B00701F18 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				FFA5D449220D2B0200701F18 /* UITableViewCell+ToggleAccessoryType.swift */,
+				FFA5D449220D2B0200701F18 /* UITableViewCell+AccessoryHandlers.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -184,7 +184,7 @@
 				FFA5D44C220E9EE500701F18 /* Item.swift in Sources */,
 				FFA5D438220C838400701F18 /* TodoListViewController.swift in Sources */,
 				FFA5D436220C838400701F18 /* AppDelegate.swift in Sources */,
-				FFA5D44A220D2B0200701F18 /* UITableViewCell+ToggleAccessoryType.swift in Sources */,
+				FFA5D44A220D2B0200701F18 /* UITableViewCell+AccessoryHandlers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
