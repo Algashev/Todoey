@@ -12,4 +12,7 @@ extension UITableViewCell {
     func toggleAccessory(_ accessory: UITableViewCell.AccessoryType) {
         self.accessoryType = (self.accessoryType == .none ? accessory : .none)
     }
+    func setAccessory(_ accessory: UITableViewCell.AccessoryType, enabled: Bool) {
+        self.accessoryType = (enabled ? accessory : .none)
+    }
 }

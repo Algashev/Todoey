@@ -8,26 +8,28 @@
 
 import UIKit
 
-struct TodoListConstants {
+struct TodoListKeys {
     static let defaultsItems: String = "TodoListItems"
 }
 
 class TodoListViewController: UITableViewController {
-    var items: [String] = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
+    var items: [Item] = [Item("Find Mike"), Item("Buy Eggos"), Item("Destroy Demogorgon")]
+    
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        if let defaultsItems = defaults.array(forKey: TodoListConstants.defaultsItems) as? [String] {
-            items = defaultsItems
-        }
+//       Do any additional setup after loading the view, typically from a nib.
+//        if let defaultsItems = defaults.array(forKey: TodoListKeys.defaultsItems) as? [String] {
+//            items = defaultsItems
+//        }
     }
     
     // MARK: - TableView Datasource Methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
-        cell.textLabel?.text = items[indexPath.row]
+        cell.textLabel?.text = items[indexPath.row].title
+        cell.setAccessory(.checkmark, enabled: items[indexPath.row].selected)
         return cell
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,8 +38,7 @@ class TodoListViewController: UITableViewController {
     
     // MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("indexPath.row = \(indexPath.row)")
-//        print("value: \(items[indexPath.row])")
+        items[indexPath.row].selected.toggle()
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.cellForRow(at: indexPath)?.toggleAccessory(.checkmark)
     }
@@ -46,12 +47,10 @@ class TodoListViewController: UITableViewController {
     @IBAction func addNewItemButtonPressed(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "New Todoey Item", message: "", preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "Add Item", style: .default) { (action) in
-//            print("Alert Action Done: \"\(action.title ?? "")\"")
             let alertTextField: UITextField = alert.textFields![0] as UITextField
             if alertTextField.text != "" {
-//                print("New Item Added: \(alertTextField.text!)")
-                self.items.append(alertTextField.text!)
-                self.defaults.set(self.items, forKey: TodoListConstants.defaultsItems)
+                self.items.append(Item(alertTextField.text!))
+//                self.defaults.set(self.items, forKey: TodoListKeys.defaultsItems)
                 self.tableView.reloadData()
             }
         }
