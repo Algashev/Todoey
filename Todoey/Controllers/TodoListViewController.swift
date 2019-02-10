@@ -8,39 +8,33 @@
 
 import UIKit
 
-struct TodoListKeys {
+private struct TodoListControllerKeys {
     static let cellReuseIdentifier: String = "ToDoItemCell"
-    static let defaultsItems: String = "TodoListItems"
 }
 
 class TodoListViewController: UITableViewController {
-    var items: [Item] = [Item("Find Mike"), Item("Buy Eggos"), Item("Destroy Demogorgon")]
-    
-    let defaults = UserDefaults.standard
+    var todoList = TodoListData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 //       Do any additional setup after loading the view, typically from a nib.
-//        if let defaultsItems = defaults.array(forKey: TodoListKeys.defaultsItems) as? [String] {
-//            items = defaultsItems
-//        }
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: TodoListKeys.cellReuseIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: TodoListControllerKeys.cellReuseIdentifier)
     }
     
     // MARK: - TableView Datasource Methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TodoListKeys.cellReuseIdentifier, for: indexPath)
-        cell.textLabel?.text = items[indexPath.row].title
-        cell.setAccessory(.checkmark, enabled: items[indexPath.row].selected)
+        let cell = tableView.dequeueReusableCell(withIdentifier: TodoListControllerKeys.cellReuseIdentifier, for: indexPath)
+        cell.textLabel?.text = todoList.item(at: indexPath.row)
+        cell.setAccessory(.checkmark, enabled: todoList.isItemSelected(at: indexPath.row))
         return cell
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return todoList.count
     }
     
     // MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        items[indexPath.row].selected.toggle()
+        todoList.toggleSelection(at: indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.cellForRow(at: indexPath)?.toggleAccessory(.checkmark)
     }
@@ -51,8 +45,7 @@ class TodoListViewController: UITableViewController {
         let alertAction = UIAlertAction(title: "Add Item", style: .default) { (action) in
             let alertTextField: UITextField = alert.textFields![0] as UITextField
             if alertTextField.text != "" {
-                self.items.append(Item(alertTextField.text!))
-//                self.defaults.set(self.items, forKey: TodoListKeys.defaultsItems)
+                self.todoList.append(Item(alertTextField.text!))
                 self.tableView.reloadData()
             }
         }
