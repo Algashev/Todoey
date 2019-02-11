@@ -17,8 +17,9 @@ class TodoListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//       Do any additional setup after loading the view, typically from a nib.
+
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: TodoListControllerKeys.cellReuseIdentifier)
+//        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
     
     // MARK: - TableView Datasource Methods
@@ -45,7 +46,7 @@ class TodoListViewController: UITableViewController {
         let alertAction = UIAlertAction(title: "Add Item", style: .default) { (action) in
             let alertTextField: UITextField = alert.textFields![0] as UITextField
             if alertTextField.text != "" {
-                self.todoList.append(Item(alertTextField.text!))
+                self.todoList.addItem(alertTextField.text!)
                 self.tableView.reloadData()
             }
         }
@@ -54,6 +55,14 @@ class TodoListViewController: UITableViewController {
         }
         alert.addAction(alertAction)
         present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: -
+extension TodoListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        todoList.searchItem(searchText)
+        tableView.reloadData()
     }
 }
 
