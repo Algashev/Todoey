@@ -13,29 +13,38 @@ private struct TodoListControllerKeys {
 }
 
 class TodoListViewController: UITableViewController {
-    var todoList = TodoListData()
+    var todoItems: TodoListData?
+    var selectedCategory: Category? {
+        didSet {
+            todoItems = TodoListData(entityName: "Item", category: (selectedCategory?.name)!)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: TodoListControllerKeys.cellReuseIdentifier)
 //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        
     }
     
     // MARK: - TableView Datasource Methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TodoListControllerKeys.cellReuseIdentifier, for: indexPath)
-        cell.textLabel?.text = todoList.item(at: indexPath.row)
-        cell.setAccessory(.checkmark, enabled: todoList.isItemSelected(at: indexPath.row))
+        let item = todoItems!.data(at: indexPath.row) as! Item
+        cell.textLabel?.text = item.title
+        cell.setAccessory(.checkmark, enabled: item.selected)
         return cell
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoList.count
+        return (todoItems?.count)!
     }
     
     // MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        todoList.toggleSelection(at: indexPath.row)
+        let item = todoItems!.data(at: indexPath.row) as! Item
+        item.selected.toggle()
+        _ = todoItems!.saveData()
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.cellForRow(at: indexPath)?.toggleAccessory(.checkmark)
     }
@@ -46,7 +55,10 @@ class TodoListViewController: UITableViewController {
         let alertAction = UIAlertAction(title: "Add Item", style: .default) { (action) in
             let alertTextField: UITextField = alert.textFields![0] as UITextField
             if alertTextField.text != "" {
-                self.todoList.addItem(alertTextField.text!)
+                let item = Item(context: self.todoItems!.context)
+                item.title = alertTextField.text!
+                item.parentCategory = self.selectedCategory
+                self.todoItems!.addData(item)
                 self.tableView.reloadData()
             }
         }
@@ -61,7 +73,7 @@ class TodoListViewController: UITableViewController {
 // MARK: -
 extension TodoListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        todoList.searchItem(searchText)
+        todoItems!.searchItem(searchText)
         tableView.reloadData()
     }
 }

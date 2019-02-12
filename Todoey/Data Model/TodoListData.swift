@@ -10,50 +10,53 @@ import UIKit
 import CoreData
 
 class TodoListData {
-    private var items = [Item]()
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private var data = [Any]()
+    private var category: String?
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var count: Int {
         get {
-            return items.count
+            return data.count
         }
     }
     
-    init() {
-        loadItems()
+    init(entityName name: String) {
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: name)
+        loadData(with: request)
+    }
+    init(entityName name: String, category: String) {
+        self.category = category
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: name)
+        let predicate = NSPredicate(format: "parentCategory.name MATCHES %@", category)
+        request.predicate = predicate
+        loadData(with: request)
     }
     
-    func item(at index: Int) -> String {
-        return items[index].title!
+    func data(at index: Int) -> Any {
+        return data[index]
     }
-    func isItemSelected(at index: Int) -> Bool {
-        return items[index].selected
-    }
-    func toggleSelection(at index: Int) {
-        items[index].selected.toggle()
-        _ = saveItems()
-    }
-    func addItem(_ title: String) {
-        let item = Item(context: context)
-        item.title = title
-        items.append(item)
-        _ = saveItems()
+    func addData(_ data: Any) {
+        self.data.append(data)
+        _ = saveData()
     }
     func searchItem(_ searchText: String) {
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        let request: NSFetchRequest<NSFetchRequestResult> = Item.fetchRequest()
+        let predicate = NSPredicate(format: "parentCategory.name MATCHES %@", category!)
         if searchText != "" {
-            request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate,  NSPredicate(format: "title CONTAINS[cd] %@", searchText)])
             request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        } else {
+            request.predicate = predicate
         }
-        loadItems(with: request)
+        loadData(with: request)
     }
-    private func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+    private func loadData(with request: NSFetchRequest<NSFetchRequestResult>) {
         do {
-            items = try context.fetch(request)
+            data = try context.fetch(request)
         } catch {
             print("Error fetching data from context: \(error)")
         }
     }
-    private func saveItems() -> Bool {
+    func saveData() -> Bool {
         do {
             try context.save()
             return true
